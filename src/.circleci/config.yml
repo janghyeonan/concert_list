@@ -1,0 +1,9 @@
+jobs:
+  run-python:
+    docker:
+      - image: python:3.9
+    steps:
+      - checkout
+      - run:
+          name: Run Script
+          command: python play.py  # play.py 실행
