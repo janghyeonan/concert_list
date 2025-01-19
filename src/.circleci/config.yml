@@ -1,9 +1,34 @@
-jobs:
-  run-python:
+version: 2.1
+
+executors:
+  python-playwright:
     docker:
-      - image: python:3.9
+      - image: mcr.microsoft.com/playwright/python:v1.38.0-focal
+        auth:
+          username: your-docker-hub-username  # Docker Hub 로그인 필요 시 설정
+          password: $DOCKER_HUB_PASSWORD      # CircleCI 환경 변수에 저장
+
+jobs:
+  test-playwright:
+    executor: python-playwright
     steps:
-      - checkout
+      - checkout  # 코드 가져오기
       - run:
-          name: Run Script
-          command: python play.py  # play.py 실행
+          name: Install dependencies
+          command: |
+            pip install -r requirements.txt
+            playwright install
+      - run:
+          name: Run Playwright test
+          command: python test_chatgpt.py
+      - store_artifacts:  # 스크린샷 저장
+          path: screenshot.png
+      - run:
+          name: Output Test Complete
+          command: echo "Test Completed Successfully!"
+
+workflows:
+  version: 2
+  test-and-store:
+    jobs:
+      - test-playwright
