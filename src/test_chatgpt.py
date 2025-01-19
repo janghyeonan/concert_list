@@ -19,7 +19,7 @@ def test_chatgpt_homepage():
 
         # 판다스를 이용해 리스트를 엑셀로 저장
         df = pd.DataFrame(result)
-        df.to_excel("result.xlsx", index=False)
+        df.to_excel("result.xlsx", index=False, engine="xlsxwriter")
         print("✅ 엑셀 저장 완료")
 
         # HTML 파일로 저장
