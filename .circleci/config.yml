@@ -23,6 +23,10 @@ jobs:
             python test_chatgpt.py
       - store_artifacts:  # 스크린샷 저장
           path: src/screenshot.png
+      - store_artifacts:  # 엑셀 파일 저장
+          path: src/result.xlsx
+      - store_artifacts:  # HTML 파일 저장
+          path: src/result.html
       - run:
           name: Output Test Complete
           command: echo "Test Completed Successfully!"
