@@ -4,25 +4,25 @@ executors:
   python-playwright:
     docker:
       - image: mcr.microsoft.com/playwright/python:v1.38.0-focal
-        auth:
-          username: your-docker-hub-username  # Docker Hub 로그인 필요 시 설정
-          password: $DOCKER_HUB_PASSWORD      # CircleCI 환경 변수에 저장
 
 jobs:
   test-playwright:
     executor: python-playwright
     steps:
-      - checkout  # 코드 가져오기
+      - checkout
       - run:
           name: Install dependencies
           command: |
+            cd src  # src 폴더로 이동
             pip install -r requirements.txt
             playwright install
       - run:
           name: Run Playwright test
-          command: python test_chatgpt.py
+          command: |
+            cd src  # src 폴더로 이동
+            python test_chatgpt.py
       - store_artifacts:  # 스크린샷 저장
-          path: screenshot.png
+          path: src/screenshot.png
       - run:
           name: Output Test Complete
           command: echo "Test Completed Successfully!"
