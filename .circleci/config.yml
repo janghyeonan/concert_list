@@ -20,7 +20,7 @@ jobs:
           name: Run Pytest with HTML Report
           command: |
             cd src  # src 폴더로 이동
-            pytest --html=report.html --self-contained-html
+            pytest --html=report.html --self-contained-html --continue-on-collection-errors
       - store_artifacts:  # HTML 테스트 리포트 저장
           path: src/report.html
       - store_artifacts:  # 스크린샷 저장
