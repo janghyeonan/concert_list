@@ -17,16 +17,18 @@ jobs:
             pip install -r requirements.txt
             playwright install
       - run:
-          name: Run Playwright test
+          name: Run Pytest with HTML Report
           command: |
             cd src  # src 폴더로 이동
-            python test_chatgpt.py
+            pytest --html=report.html --self-contained-html
+      - store_artifacts:  # HTML 테스트 리포트 저장
+          path: src/report.html
       - store_artifacts:  # 스크린샷 저장
           path: src/screenshot.png
       - store_artifacts:  # 엑셀 파일 저장
           path: src/result.xlsx
       - store_artifacts:  # HTML 파일 저장
-          path: src/result.html
+          path: src/result22.html
       - run:
           name: Output Test Complete
           command: echo "Test Completed Successfully!"

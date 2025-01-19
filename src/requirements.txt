@@ -1,2 +1,4 @@
 playwright
 pandas
+pytest
+pytest-html
